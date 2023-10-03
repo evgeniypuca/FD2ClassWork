@@ -2,51 +2,58 @@
 
 const MAX_AGE = 150;
 const MIN_AGE = 0;
-const RETIRED_MALE = 65;
-const RETIRED_FIMALE = 60;
-const SEX_MALE  = 'М';
-const SEX_FIMALE  = 'Ж';
+const RETIRED_MALE_AGE = 63;
+const RETIRED_FEMALE_AGE = 58;
+const SEX_MALE = 'М';
+const SEX_FEMALE = 'Ж';
 
-const lastName = getUserInput('Ваша фамилия', keepWithoutChange,isNotEmptyString);
-const name = getUserInput('Ваше имя', keepWithoutChange, isNotEmptyString);
-const fathername = getUserInput('Ваше отчество', keepWithoutChange, isNotEmptyString);
-const age = getUserInput('Ваш возраст',transformToNumber, isValidAge );
-const gender = getUserInput('Вы мужчина или женщина? Введите М или Ж', transformToGender, isValidGender );
-const retiredAge = sex 
-let retired;
+const firstName = getUserInput('Enter your first name', keepWithoutChange, isNonEmptyString);
+const lastName = getUserInput('Enter your last name', keepWithoutChange, isNonEmptyString);
+const middleName = getUserInput('Enter your middle name', keepWithoutChange, isNonEmptyString);
+const age = getUserInput('Enter your age', transformToNumber, isValidAge);
+const sex = getUserInput('Enter your sex', transformToSex, isNonEmptyString);
+const retiredAge = sex === SEX_MALE ? RETIRED_MALE_AGE : RETIRED_FEMALE_AGE;
+const retired = age >= retiredAge;
 
 alert(
-    `ФИО: ${lastName} ${name} ${fathername}
+    `ФИО: ${lastName} ${firstName} ${middleName}
 Возраст: ${age}
-Пол: ${gender}
-На пенсии: ${retired}`
+Пол: ${sex}
+На пенсии: ${retired ? 'Да' : 'Нет'}`
 );
 
 
-
-function keepWithoutChange (data) {
+function keepWithoutChange(data) {
     return data;
 }
 
-function isNotEmptyString (value){
-    return  Boolean(value)
-}
-
-function replaceSymbols(inputString, targetSymbol, replaceSymbol){
-    let resultString = '';
-    for (const char of inputString) {
-        resultString += char === targetSymbol ? replaceSymbol : char;
-
-    }
-    return resultString;
-}
-
 function transformToNumber(data) {
-    
-    if(!data){
+    if (!data) {
         return NaN;
     }
-    return Number(replaceSymbols(data, ",", "."));
+
+    return Number(replaceSymbols(data, ',', '.'));
+}
+
+function transformToSex(data) {
+    switch (data) {
+        case 'м':
+        case 'М':
+        case 'M':
+        case 'm':
+            return SEX_MALE;
+        case 'ж':
+        case 'Ж':
+        case 'f':
+        case 'F':
+            return SEX_FEMALE;
+        default:
+            return '';
+    }
+}
+
+function isNonEmptyString(value) {
+    return Boolean(value);
 }
 
 function isValidAge(inputAge) {
@@ -63,44 +70,16 @@ function getUserInput(message, transformData, isValid) {
         isCancelled = rawUserInput === null;
         userInput = isCancelled ? null : transformData(rawUserInput);
     } while (isCancelled || !isValid(userInput));
+
     return userInput;
 }
- 
-function transformToGender (inputGender) {
-    // return inputGender.toUpperCase()
 
-    switch (inputGender){
-        case "м":
-        case "М":
-        return SEX_MALE
-        case "ж":
-        case "Ж":
-        return SEX_MALE
-        default:
-            return "";
+function replaceSymbols(inputString, targetSymbol, replacementSymbol) {
+    let resultString = '';
 
+    for (const char of inputString) {
+        resultString += char === targetSymbol ? replacementSymbol : char;
     }
 
+    return resultString;
 }
-
-function isValidGender  (someGender){
-        return someGender === SEX_MALE || someGender === SEX_FIMALE
-}
-
-if (gender === 'М') {
-    if (age < RETIRED_MALE) {
-        retired = 'нет';
-    }
-    else {
-        retired = 'да';
-    }
-}
-else if (age < RETIRED_FIMALE) {
-    retired = 'нет';
-}
-else {
-    retired = 'да';
-};
-
-
-
