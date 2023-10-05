@@ -29,17 +29,13 @@
 //         stat[symbol] = (stat[symbol] ?? 0) +1;
 //         return stat; 
 //     }, {});
-   
+
 // }
 // countNumString("dddffffds");
 
-function returnArrNum (...num){
-   const num2 = num.filter((elem) => {
-        return  elem %2 === 0;
-    })
-    return num2;
-
+function returnArrNum(...num) {
+    return num.filter((elem) => elem % 2 === 0)
 }
 
-returnArrNum(1,2,3,4,5,6); 
+returnArrNum(1, 2, 3, 4, 5, 6);
 
