@@ -36,6 +36,3 @@
 function returnArrNum(...num) {
     return num.filter((elem) => elem % 2 === 0)
 }
-
-returnArrNum(1, 2, 3, 4, 5, 6);
-
