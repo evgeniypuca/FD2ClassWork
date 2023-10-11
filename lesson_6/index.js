@@ -33,6 +33,8 @@
 // }
 // countNumString("dddffffds");
 
-function returnArrNum(...num) {
-    return num.filter((elem) => elem % 2 === 0)
-}
+// function returnArrNum(...num) {
+//     return num.filter((elem) => elem % 2 === 0)
+// }
+
+

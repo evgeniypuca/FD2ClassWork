@@ -29,15 +29,17 @@ console.log(moveZeros([false, 1, 0, 1, 2, 0, 1, 3, "a"]));
 
 
 function findMissingLetter(arr) {
-    let secondaryArr = [];
-    for (let el = 0; el < arr.length; el++) {
-        if (((el + 1).charCodeAt()) - (el.charCodeAt()) > 0) {
-            secondaryArr.push(el);
-            console.log(el);
-
+    let str = arr.join('');
+    console.log(str);
+    for (let i = 0; i < str.length; i++) {
+        if (!str.includes(String.fromCharCode(str.charCodeAt(i+1)))) {
+            console.log(String.fromCharCode(str.charCodeAt(i)));
         }
+       // if ((arr[i + 1].charCodeAt(0)) - arr[i].charCodeAt(0) > 1) {
+        //     secondaryArr.push(String.fromCharCode(arr[i].charCodeAt(+1)));
+        // }
     }
-    return secondaryArr;
+
 }
 
 
@@ -196,24 +198,112 @@ function maskify (str){
 
 console.log(maskify("4556364607935616"));
 
+// #9 решена
 // Дан массив слов, необходимо определить, 
 // составлены ли все слова из одних и тех же символов.
 // Например:
-// ["кот", "ток", "кто"] --> true
+// ["ток", "ток", "кто"] --> true
 // ["кот", "тк", "кТо"] --> false
 
  
 function isTrueArr (arr) {
     const firstElem = arr[0].split('').sort().join('');
-    return arr.every((elem) => {
-        return firstElem !== elem.split('').sort().join('');
-    });    
-    // for (let elem of arr){
-    //     if (firstElem !== elem.split('').sort().join('')){
-    //         return console.log('1');
-    //     }
-    // }
-    // return console.log('2');
+    for (let elem of arr){
+        if (firstElem !== elem.split('').sort().join('')){
+            return false;
+        }
+    }
+    return true;
+}
+console.log(isTrueArr (["кто", "ток", "ктво"]));
+
+// #10 решена
+// Напишите функцию, которая возвращает сумму таким образом:
+
+// Например:
+// f(1)(2)(3) --> 6
+
+function sum(a) {
+    return function (b){
+        return function (c){
+            return a + b + c;
+        }
+    }
+  }
+  
+console.log(sum(1)(2)(10));
+
+//#11 
+// Напишите функцию, которая находит наиболее часто используемый элемент массива.
+
+// Например:
+// const array=[7, 'z', 'z', 'z', 3, 7, 'z', 7, 'z', 3, 5, 7]; --> "z"
+
+const array=[1, 'z', 'z', 'z', 3, 1, 'z', 1, 'z', 3, 5, 'z', 'z', 'z', 'z', 'z', 1,1,1, ]; 
+
+function getOftenElement (arr) {
+    const countObj = arr.reduce((acc, e) =>{
+        acc[e] = (acc[e] ?? 0) + 1;
+        return acc;
+    },{});
+
+    let oftenElement = null;
+    let count = 0;
+    const key = Object.keys(countObj);
+    
+    for (let elem of key){
+        if (countObj[elem] > count){
+            count = countObj[elem];
+            oftenElement = elem;
+        }
+    }
+    return oftenElement;
 }
 
-isTrueArr (["кот", "тк", "кто"]);
+console.log(getOftenElement(array));
+
+// 12 htityf
+// Напишите функцию `expand(arr)`, которая разворачивает 
+// вложенный массив любой глубины.
+
+// Например:
+// const arr1 = [1, [2,[3,[4]]]]; --> [1,2,3,4]; 
+// const arr2 = [1, [2], [3, [[4]]],[5,6]]; --> [1,2,3,4,5,6];
+const arr1 = [1]; 
+const arr2 = [1, [2], [3, [[4]]],[5,6]];
+
+
+
+function expand(arr){
+return arr.reduce((acc,elem) => {
+       let result = elem instanceof Array ? expand(elem) : elem;
+       return acc.concat(result);
+},[]);
+}
+// console.log(expand(arr1));
+// console.log(expand(arr2));
+console.log(arr2.flat());
+
+
+
+
+
+
+let word = ['banana', 'grape','banana','grape', 'banana', 'orange','banana'];
+
+const mySort = (arr) => {
+
+    const temp = arr.reduce((acc, cur) => {
+        acc[cur] = (acc[cur] ?? 0) + 1;
+        return acc;
+    },{});  
+    console.log(temp);
+    const key = Object.keys(temp);
+    return key.sort((a, b) => temp[a] - temp[b]);
+};
+console.log(mySort(word));
+
+
+
+
+
