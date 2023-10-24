@@ -76,3 +76,5 @@ function renderCycle(callback) {
 
 let v = 0;
 renderCycle(() => console.log(++v))
+
+
