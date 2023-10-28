@@ -1,27 +1,27 @@
-// const id = setTimeout(() => {
-//     console.log('5');
-// }, 5000)
+const id = setTimeout(() => {
+    console.log('5');
+}, 5000)
 
-// setTimeout(() => {
-//     clearTimeout(id);
-//     console.log('clearT');
-//     setTimeout(() => {
-//         console.log('claerI');
-//         clearInterval(idInt)
-//     }, 3000);
-// }, 3000);
+setTimeout(() => {
+    clearTimeout(id);
+    console.log('clearT');
+    setTimeout(() => {
+        console.log('clearI');
+        clearInterval(idInt)
+    }, 3000);
+}, 3000);
 
-// let s = 0;
+let s = 0;
 
-// const idInt = setInterval(() => { 
-//     console.log(++s);
-// }, 1000);
+const idInt = setInterval(() => { 
+    console.log(++s);
+}, 1000);
 
-// // const bigInt = 56354651n; 
-// // const value =0b0101010110; // двоичное
-// // const num = 0x12512A125d5;  //шеснадцатиричное  
+// const bigInt = 56354651n; 
+// const value =0b0101010110; // двоичное
+// const num = 0x12512A125d5;  //шеснадцатиричное  
 
-// // console.log(Number.MAX_SAFE_INTEGER);
+console.log(Number.MAX_SAFE_INTEGER);
 
 
 const cancelTask = sheduleTask(() => {
@@ -29,12 +29,13 @@ const cancelTask = sheduleTask(() => {
 },);
 
 function sheduleTask(task) {
-   const id = setTimeout(() => task(), 300)
-    return () => {
-        clearTimeout(id)
+   const id = setInterval(task, 2000);
+   return () => {
+        clearInterval(id);
     }
 }
-cancelTask()
+
+cancelTask();
 
 
 queueMicrotask(() => {
@@ -63,7 +64,7 @@ function renderCycle(callback) {
     const render = () => {
         idRef.id = requestAnimationFrame(() => {
         callback();
-        render()
+        render();
     });
     };
 
@@ -75,4 +76,4 @@ function renderCycle(callback) {
 }
 
 let v = 0;
-renderCycle(() => console.log(++v))
+renderCycle(() => console.log(++v));
