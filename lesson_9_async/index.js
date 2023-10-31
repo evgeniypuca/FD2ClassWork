@@ -76,4 +76,10 @@ function renderCycle(callback) {
 }
 
 let v = 0;
+<<<<<<< HEAD
 renderCycle(() => console.log(++v));
+=======
+renderCycle(() => console.log(++v))
+
+
+>>>>>>> 1ef32d63fb33c52fff70feb92f06b6b6ab5779be
