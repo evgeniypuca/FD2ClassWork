@@ -3,8 +3,10 @@ const { resolve } = require('node:path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const { Extension } = require('typescript');
 
-module.exports  = {
-    mode: 'development',
+module.exports  = (_, flags) => {
+    const isProd = flags.mode === 'production';
+    return {
+    mode: isProd ? 'production' :'development',
     context: resolve(cwd(), './src'),
     devtool: 'source-map',
     entry: {
@@ -16,12 +18,12 @@ module.exports  = {
        clean: true,
     },
     resolve: {
-        extensions: ['.ts', '.js'],
+        extensions: ['.ts', '.js', '.jsx', '.tsx'],
     },
     module: {
         rules: [
             {
-                test: /\.ts$/,
+                test: /\.tsx?$/,
                 use: 'ts-loader',
             },
         ],
@@ -33,4 +35,6 @@ module.exports  = {
             scriptLoading: 'defer',
         }),
     ],
+    };
+
 };
