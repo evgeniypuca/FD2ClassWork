@@ -1,6 +1,9 @@
 // import { COLORS } from "./colors";
 // import { createElementByColor } from "./createElementByColor";
 
+import { FormValidator } from "./FormValidator";
+import { maxLength, nonEmptyArray, requiredText } from "./validstors";
+
 // const mainEl = document.getElementById('main');
 
 
@@ -58,18 +61,47 @@
 //=================================================================================
 
 const pizzaOrderForm = document.forms.namedItem('pizzaOrder');
+
+
+interface PizzaOrder {
+    pizzas: string[];
+    addons: string[];
+    paymentType:string;
+    customerName:string;
+    shippingAdress:string;
+}
+
+const pizzaOrderValidator = new FormValidator<PizzaOrder>({
+    pizzas: [
+        nonEmptyArray,
+    ],
+    paymentType:[
+        requiredText,
+    ],
+    customerName: [
+        requiredText,
+        maxLength(100),
+    ],
+    shippingAdress: [
+        requiredText,
+        maxLength(200)
+    ]
+
+});
+
 pizzaOrderForm?.addEventListener('submit', (event) => {
     event.preventDefault();
     
     const formData = new FormData(pizzaOrderForm);
-    const pizzaOrder = {
-        pizzas: formData.getAll('pizza'),
-        addons: formData.getAll('addon'),
-        paymentType: formData.get('paymentType'),
+    const pizzaOrder: PizzaOrder = {
+        pizzas: formData.getAll('pizza') as string[],
+        addons: formData.getAll('addon')as string[],
+        paymentType: String(formData.get('paymentType')),
         customerName: (formData.get('customerName') as string).trim(),
         shippingAdress: String(formData.get('shippingAdress')).trim(),
     };
+    const errors = pizzaOrderValidator.validate(pizzaOrder);
 
-    console.log(pizzaOrder);
+    console.log(errors);
     
 });

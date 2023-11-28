@@ -1,5 +1,6 @@
-import { ValidatorFunction, requiredText } from "./ValidatorFunction";
+import { ValidatorFunction,} from "./ValidatorFunction";
 import { ValidatorResult } from "./ValidatorResult";
+import { requiredText } from "./validstors";
 
 export function conposeValidators<T>(...validators: ValidatorFunction<T>[]): ValidatorFunction<T> {
     return (value: T): ValidatorResult => {
