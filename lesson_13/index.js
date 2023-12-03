@@ -9,7 +9,7 @@
 
 
 function replaceLongColors(text){
-    return text.replace(/_[a-z]/gi, (math) => math.charAt(1).toUpperCase())
+    return text.replace(/_[a-z]/gi, (math,) => math.charAt(1).toUpperCase())
     
 }
 
