@@ -16,7 +16,12 @@ export class FormValidator<Data extends object> {
         this.#validationMap = new Map();
         
         for (const [key, value] of Object.entries(configuration)) {
-            this.#validationMap.set(key, conposeValidators(...value as ValidatorFunction<unknown>[]))
+            this.#validationMap.set(
+                key,
+                Array.isArray(value)
+                ? conposeValidators(...value as ValidatorFunction<unknown>[])
+                : value as ValidatorFunction<unknown>,
+                );
         }
     }
 
