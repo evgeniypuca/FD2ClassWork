@@ -14,3 +14,4 @@ function replaceLongColors(text){
 }
 
 console.log(replaceLongColors('dfdsf_dsdf_dfsdf'));
+

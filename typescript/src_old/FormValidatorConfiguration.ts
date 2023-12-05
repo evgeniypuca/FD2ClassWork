@@ -1,5 +1,5 @@
 import { ValidatorFunction } from "./ValidatorFunction";
 
 export type FormValidatorConfiguration <T extends object> = {
-    [Property in keyof T]?: ValidatorFunction<T[Property]>[]; 
+    [Property in keyof T]?: ValidatorFunction<T[Property]>[] | ValidatorFunction<T[Property]>; 
 }
