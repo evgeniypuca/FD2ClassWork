@@ -1,18 +1,27 @@
+import { getTasks, saveTasks } from "./storageUtils";
+import { renderTasks } from "./renderTasks";
+import { Task } from "./task";
 
-const form = document.forms.namedItem('form');
+const resultsElement = document.getElementById('results')!;
+const todoForm = document.forms.namedItem('todo');
 
+const tasks = getTasks();
 
+renderTasks(resultsElement, tasks);
 
-form?.addEventListener('submit', (event) => {
+todoForm?.addEventListener('submit', (event) => {
     event.preventDefault();
-    
-    const formData = new FormData(form);
-    const todo = formData.get('todo') as string;
-    
-        
-    const output = document.querySelector('#output'); 
 
-});
+    const text = String(new FormData(todoForm).get('taskText') ?? '');
 
+    const task:Task = {
+        text,
+        datetime: new Date().toISOString(),
+    };
 
+    tasks.push(task);
+    saveTasks(tasks);
+    renderTasks(resultsElement, tasks);
+    todoForm.reset();
+})
 
