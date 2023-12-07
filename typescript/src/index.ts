@@ -14,7 +14,7 @@ todoForm?.addEventListener('submit', (event) => {
 
     const text = String(new FormData(todoForm).get('taskText') ?? '');
 
-    const task:Task = {
+    const task: Task = {
         text,
         datetime: new Date().toISOString(),
     };

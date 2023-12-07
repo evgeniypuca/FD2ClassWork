@@ -6,7 +6,7 @@ export function saveTasks(tasks: Task[]) {
 }
 
 export function getTasks(): Task[] {
-    const storageData  = localStorage.getItem(STORAGE_TASKS_KEY);
+    const storageData = localStorage.getItem(STORAGE_TASKS_KEY);
     return storageData ? JSON.parse(storageData) : [];
 }
 

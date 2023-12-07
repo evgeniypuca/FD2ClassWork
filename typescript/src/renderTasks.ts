@@ -1,6 +1,6 @@
 import { Task } from "./task";
 
-export function renderTasks(root:HTMLElement, tasks: Task[]): void {
+export function renderTasks(root: HTMLElement, tasks: Task[]): void {
     root.replaceChildren(tasks.reduce((fragment, task) => {
         fragment.append(createTaskItem(task));
 
