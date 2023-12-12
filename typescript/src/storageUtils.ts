@@ -1,4 +1,4 @@
-import { Task } from "./task";
+import { Task } from "./moduls/task";
 const STORAGE_TASKS_KEY = 'CW.TODO_TASKS'
 
 export function saveTasks(tasks: Task[]) {

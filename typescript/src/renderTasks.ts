@@ -1,4 +1,4 @@
-import { Task } from "./task";
+import { Task } from "./moduls/task";
 
 export function renderTasks(root: HTMLElement, tasks: Task[]): void {
     root.replaceChildren(tasks.reduce((fragment, task) => {
@@ -8,11 +8,11 @@ export function renderTasks(root: HTMLElement, tasks: Task[]): void {
     }, document.createDocumentFragment()));
 }
 
-function createTaskItem({ datetime, text }: Task) {
+function createTaskItem({ createDate, text }: Task) {
     const li = document.createElement('li');
-    const formattedDate = new Date(datetime).toLocaleString('ru')
+    const formattedDate = new Date(createDate).toLocaleString('ru')
 
-    li.innerHTML = `<span>${formattedDate}</span> <span>${text}</span>`;
+    li.innerHTML = `<span>${formattedDate}</span> <span>${text}</span><button type="button">remove</button>`
 
     return li;
 }

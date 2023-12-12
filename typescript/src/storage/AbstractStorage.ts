@@ -22,6 +22,4 @@ export abstract class AbstractStorage<Value extends { id: Id }, Id extends numbe
 
     abstract delete (id:Id): Promise<void>;
 
-
-
 }
